@@ -135,6 +135,19 @@ router.get('/admin/get-product-name', (req, res) => {
         }
     });
 });
+router.get('/admin/get-production', (req, res) => {
+    db.query('SELECT * FROM uretim_tbl', (error, result) => {
+        if (error) {
+            console.log("Bir hata oluştu: " + error);
+            res.status(500).send("Veri çekme sırasında bir hata oluştu.");
+        } else {
+          console.log(result);
+            res.status(200).send(result);
+        }
+    });
+});
+
+
 
 
 

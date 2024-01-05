@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/output.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="/alert/sweetalert2.css">
   <title>Index</title>
 </head>
 
@@ -13,131 +14,149 @@
 
   <%- include('template/navbar') %>
 
-    <div class="p-11 h-full  flex items-center justify-center">
-      <div class="bg-white p-8 rounded-lg shadow-md w-1/3">
-    
-          <% queryResult.forEach(data => { %>
-           <h1><%= data.makine_ad %></h1>
-        
-      
-
-        <div class="relative mb-5">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor" viewBox="0 0 20 20">
-              <path
-                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-            </svg>
-          </div>
-          <input datepicker type="text" on id="date"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Tarih Seç">
-        </div>
-
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine Adı</label>
-        <select id="countries"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Makine Adı</option>
-          <option value="US"><%= data.makine_ad %></option>
-         
-        </select>
-
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine Numarası</label>
-        <select id="countries"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Makine Numarası</option>
-          <option value="US"><%= data.makine_numarası %></option>
-          
-        </select>
-      </div>
-
-      <% }) %>
-    </div>
-
 
     <div class="p-11 h-full  flex items-center justify-center">
       <div class="bg-white p-8 rounded-lg shadow-md w-1/2">
-      
 
-<div class="relative overflow-x-auto">
-  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-              <th scope="col" class="px-6 py-3">
+
+
+        <form id="productionInputForm">
+          <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tarih</label>
+          <div class="relative  mb-5">
+
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+              </svg>
+            </div>
+
+            <input datepicker datepicker-autohide type="text" autocomplete="off" id="date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Tarih Seçiniz">
+          </div>
+          <label for="machineNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine
+            Numarası Seçiniz</label>
+          <select id="machineNumber"
+            class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Makine numarası</option>
+          </select>
+
+          <label for="machineName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine Adı
+            Seçiniz</label>
+          <select id="machineName"
+            class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Makine Adı</option>
+          </select>
+
+          <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ürün Adı
+            Seçiniz</label>
+          <select id="productName"
+            class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected>Makine Adı</option>
+
+          </select>
+
+          <label for="count" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Üretim Adedi</label>
+          <input type="number" id="count"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
+
+
+
+          <div class="mt-5"><button type="submit"
+              class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Oluştur</button>
+          </div>
+        </form>
+
+
+
+      </div>
+    </div>
+    <div class="p-11 h-full  flex items-center justify-center">
+      <div class="bg-white p-8 rounded-lg shadow-md w-1/2">
+
+
+        <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
                   Üretim Tarihi
-              </th>
-              <th scope="col" class="px-6 py-3">
+                </th>
+                <th scope="col" class="px-6 py-3">
                   Ürün Adı
-              </th>
-              <th scope="col" class="px-6 py-3">
+                </th>
+                <th scope="col" class="px-6 py-3">
                   Makine Numarası
-              </th>
-              <th scope="col" class="px-6 py-3">
+                </th>
+                <th scope="col" class="px-6 py-3">
                   Makine Adı
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Üretim Adedi
-            </th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                 3.01.2024
-              </th>
-              <td class="px-6 py-4">
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Üretim Adedi
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  3.01.2024
+                </th>
+                <td class="px-6 py-4">
                   2'lik Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   4
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
-                25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
-            </td>
-          </tr>
-        
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                 3.01.2024
-              </th>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
+                  25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
+                </td>
+              </tr>
+
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  3.01.2024
+                </th>
+                <td class="px-6 py-4">
                   2'lik Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   4
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
-                25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
-            </td>
-          </tr>
-        
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                 3.01.2024
-              </th>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
+                  25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
+                </td>
+              </tr>
+
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  3.01.2024
+                </th>
+                <td class="px-6 py-4">
                   2'lik Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   4
-              </td>
-              <td class="px-6 py-4">
+                </td>
+                <td class="px-6 py-4">
                   Pet Kavanoz
-              </td>
-              <td class="px-6 py-4">
-                25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
-            </td>
-          </tr>
-        
-      </tbody>
-  </table>
-</div>
+                </td>
+                <td class="px-6 py-4">
+                  25400 <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
 
       </div>
     </div>
@@ -149,20 +168,206 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/flowbite/flowbite.min.js"></script>
     <script src="/flowbite/datepicker.js"></script>
+    <script src="/alert/sweetalert2.js"></script>
     <script>
       AOS.init();
     </script>
 
     <!-- Navbar Toggle Script -->
-   
+
     <script>
-      
-     
-      function getDate() {
-        document.getElementById('date');
-        console.log(date.value);
+      function createAlert(title, text, icon) {
+        Swal.fire({
+          title: title,
+          text: text,
+          icon: icon
+        });
       }
+      document.getElementById('productionInputForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        addProduction();
+      });
+
+
+
+      addEventListener("DOMContentLoaded", () => {
+        getMachineNumber();
+        getMachineName();
+        getProductName();
+        getProduction();
+      })
     </script>
+
+
+    <script>
+      function getMachineNumber() {
+        fetch('/admin/get-machine-number')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+            let selectElement = document.getElementById('machineNumber');
+
+            data.forEach(item => {
+              let option = document.createElement('option');
+              option.value = item.makine_numarasi;
+              option.text = item.makine_numarasi;
+              selectElement.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error during fetch:', error);
+          });
+      }
+      function getMachineName() {
+        fetch('/admin/get-machine-name')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+            let selectElement = document.getElementById('machineName');
+
+            data.forEach(item => {
+              let option = document.createElement('option');
+              option.value = item.makine_ad;
+              option.text = item.makine_ad;
+              selectElement.appendChild(option);
+            });
+          })
+
+          .catch(error => {
+            console.error('Error during fetch:', error);
+          });
+      }
+      function getProductName() {
+        fetch('/admin/get-product-name')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+
+            let selectElement = document.getElementById('productName');
+
+            data.forEach(item => {
+              let option = document.createElement('option');
+              option.value = item.urun_ad;
+              option.text = item.urun_ad;
+              selectElement.appendChild(option);
+            });
+          })
+
+          .catch(error => {
+            console.error('Error during fetch:', error);
+          });
+      }
+      function addProduction() {
+        let date = document.getElementById('date').value;
+        let productName = document.getElementById('productName').value;
+        let machineNumber = document.getElementById('machineNumber').value;
+        let machineName = document.getElementById('machineName').value;
+        let count = document.getElementById('count').value;
+        ;
+        const data = {
+          date: date,
+          productName: productName,
+          machineNumber: machineNumber,
+          machineName: machineName,
+          count: count
+        };
+        fetch('/admin/add/production', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+          .then(response => {
+            // Yanıt kontrolü
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+            createAlert("Başarılı!", "Ürün Kaydı Başarılı.", "success");
+            document.getElementById('product').value = "";
+          })
+          .catch(error => {
+            // Hata durumunda
+            console.error('Error:', error);
+          });
+
+
+      }
+      function getProduction() {
+        fetch('/admin/get-production')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+            let tbody = document.getElementById('tbody');
+            tbody.innerHTML = '';
+            data.forEach(item => {
+
+              // Örnek tarih değeri: "2010-09-19T21:00:00.000Z"
+              const originalDate = new Date(item.uretim_tarih);
+
+              // Türk standartlarına uygun tarih ve saat formatı
+              const formattedDate = originalDate.toLocaleDateString('tr-TR', {
+                year: 'numeric',
+                month: 'numeric',
+                day: 'numeric',
+               
+              });
+
+              tbody.innerHTML += `
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            ${formattedDate}
+        </th>
+        <td class="px-6 py-4">
+            ${item.urun_ad}
+        </td>
+        <td class="px-6 py-4">
+            ${item.makine_numarasi}
+        </td>
+        <td class="px-6 py-4">
+            ${item.makine_ad}
+        </td>
+        <td class="px-6 py-4">
+            ${item.uretim_adedi} <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
+        </td>
+    </tr>
+`;
+
+            });
+          })
+          .catch(error => {
+            console.error('Error during fetch:', error);
+          });
+      }
+
+
+    </script>
+
+
 </body>
 
 </html>
