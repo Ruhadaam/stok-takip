@@ -1,0 +1,126 @@
+<div class="flex p-20">
+    <!-- 1. Box -->
+    <div class="w-1/4 pr-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full">
+            <form id="addNumberForm">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine
+                    Numarası</label>
+                <input type="number" id="number"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
+                <div class="mt-5"><button type="submit"
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Oluştur</button>
+                </div>
+            </form>
+            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+            <div id="numbersList"></div>
+           
+        </div>
+    </div>
+
+    <!-- 2. Box -->
+    <div class="w-1/4 pl-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full">
+            <form id="addNameForm">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine
+                    Adı</label>
+                <input type="text" id="name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
+
+                <div class="mt-5"><button type="submit"
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Oluştur</button>
+                </div>
+            </form>
+
+            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+            <div id="nameList"></div>
+         
+        </div>
+    </div>
+    <!-- 3. Box -->
+    <div class="w-1/4 pl-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full">
+            <form id="addProductForm">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ürün Adı</label>
+                <input type="text" id="product"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
+
+                <div class="mt-5"><button type="submit"
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Oluştur</button>
+                </div>
+            </form>
+
+            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+          
+                <div id="productNameList"></div>
+
+        
+        
+
+        </div>
+    </div>
+    <!-- 4. Box -->
+    <div class="w-1/4 pl-4">
+        <div class="bg-white p-8 rounded-lg shadow-md w-full">
+
+            <form id="productionInputForm">
+                <label for="date"  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tarih</label>
+                <div class="relative max-w-sm mb-5">
+                    
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                       <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                        </svg>
+                    </div>
+                    
+                    <input datepicker datepicker-autohide type="text" autocomplete="off" id="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tarih Seçiniz">
+                  </div>
+                <label for="machineNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine
+                    Numarası Seçiniz</label>
+                    <select id="machineNumber"
+                    class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Makine numarası</option>
+                    <option value="1">United States</option>
+                    <option value="2">Canada</option>
+                    <option value="3">France</option>
+                    <option value="4">Germany</option>
+                </select>
+                <label for="machineName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Makine Adı
+                    Seçiniz</label>
+                <select id="machineName"
+                    class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Makine Adı</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                </select>
+
+                <label for="productName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ürün Adı
+                    Seçiniz</label>
+                <select id="productName"
+                    class="bg-gray-50 border border-gray-300 mb-5 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Makine Adı</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                </select>
+
+                <label for="count" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Üretim Adedi</label>
+                <input type="number" id="count"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+
+                
+
+
+                <div class="mt-5"><button type="submit"
+                        class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Oluştur</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
