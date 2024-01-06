@@ -75,21 +75,21 @@ router.post('/admin/add/product', (req, res) => {
     });
 });
 
-
 router.post('/admin/add/production', (req, res) => {
     let uretim_tarih = req.body.date;
     let parts = uretim_tarih.split('/');
     let jsDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
     let mysqlDate = jsDate.toISOString().split('T')[0];
-    let makine_ad = req.body.productName;
+    let urun_ad = req.body.productName;
+    let makine_ad = req.body.machineName;
     let makine_numarasi = req.body.machineNumber;
     let uretim_adedi = req.body.count;
     console.log(req.body);
 
-    const sql = `INSERT INTO uretim_tbl (urun_id, uretim_tarih, makine_ad, makine_numarasi, uretim_adedi)
-                 VALUES (NULL, ?, ?, ?, ?);`;
+    const sql = `INSERT INTO uretim_tbl (uretim_tarih, urun_ad, makine_ad, makine_numarasi, uretim_adedi)
+                 VALUES (?, ?, ?, ?, ?);`;
 
-    db.query(sql, [mysqlDate, makine_ad, makine_numarasi, uretim_adedi], (error, result) => {
+    db.query(sql, [mysqlDate, urun_ad, makine_ad, makine_numarasi, uretim_adedi], (error, result) => {
         if (error) {
             console.error(error);
             res.status(500).send({ title: "Hata", text: "İşlem sırasında bir hata oluştu.", icon: "error" });
@@ -100,6 +100,7 @@ router.post('/admin/add/production', (req, res) => {
 });
 
 
+
 //GET DATA
 
 router.get('/admin/get-machine-number', (req, res) => {
@@ -108,7 +109,7 @@ router.get('/admin/get-machine-number', (req, res) => {
             console.log("Bir hata oluştu: " + error);
             res.status(500).send("Veri çekme sırasında bir hata oluştu.");
         } else {
-          
+
             res.status(200).send(result);
         }
     });
@@ -119,7 +120,7 @@ router.get('/admin/get-machine-name', (req, res) => {
             console.log("Bir hata oluştu: " + error);
             res.status(500).send("Veri çekme sırasında bir hata oluştu.");
         } else {
-          
+
             res.status(200).send(result);
         }
     });
@@ -130,22 +131,80 @@ router.get('/admin/get-product-name', (req, res) => {
             console.log("Bir hata oluştu: " + error);
             res.status(500).send("Veri çekme sırasında bir hata oluştu.");
         } else {
-          
+
             res.status(200).send(result);
         }
     });
 });
 router.get('/admin/get-production', (req, res) => {
-    db.query('SELECT * FROM uretim_tbl', (error, result) => {
+    const today = new Date().toISOString().split('T')[0];
+
+    db.query('SELECT * FROM uretim_tbl WHERE DATE(uretim_tarih) = ? ORDER BY uretim_tarih ASC', [today], (error, result) => {
         if (error) {
             console.log("Bir hata oluştu: " + error);
             res.status(500).send("Veri çekme sırasında bir hata oluştu.");
         } else {
-          console.log(result);
+            console.log(result);
             res.status(200).send(result);
         }
     });
 });
+
+//DELETE DATA
+router.delete("/admin/delete/machine-number/:makine_id", (req, res) => {
+
+    let makine_id = req.params.makine_id;
+
+    const sql = `DELETE FROM numara_tbl  WHERE makine_id = ?`;
+
+
+    db.query(sql, [makine_id], (error, result) => {
+        if (error) {
+            console.error('Soru silinirken hata oluştu:', error);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.status(200).json({ message: 'Soru başarıyla silindi.' });
+        }
+    })
+
+});
+router.delete("/admin/delete/machine-name/:ad_id", (req, res) => {
+
+    let ad_id = req.params.ad_id;
+
+    const sql = `DELETE FROM makine_tbl  WHERE ad_id = ?`;
+
+
+    db.query(sql, [ad_id], (error, result) => {
+        if (error) {
+            console.error('Soru silinirken hata oluştu:', error);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.status(200).json({ message: 'Soru başarıyla silindi.' });
+        }
+    })
+
+});
+router.delete("/admin/delete/product-name/:urun_id", (req, res) => {
+
+    let urun_id = req.params.urun_id;
+
+    const sql = `DELETE FROM urun_tbl  WHERE urun_id = ?`;
+
+
+    db.query(sql, [urun_id], (error, result) => {
+        if (error) {
+            console.error('Soru silinirken hata oluştu:', error);
+            res.status(500).send('Internal Server Error');
+        } else {
+            res.status(200).json({ message: 'Soru başarıyla silindi.' });
+        }
+    })
+
+});
+
+
+
 
 
 

@@ -88,12 +88,7 @@
                 <th scope="col" class="px-6 py-3">
                   Ürün Adı
                 </th>
-                <th scope="col" class="px-6 py-3">
-                  Makine Numarası
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Makine Adı
-                </th>
+            
                 <th scope="col" class="px-6 py-3">
                   Üretim Adedi
                 </th>
@@ -198,8 +193,9 @@
       })
     </script>
 
-
+<!-- ADD AND GET DATA SCRIPTS -->
     <script>
+      
       function getMachineNumber() {
         fetch('/admin/get-machine-number')
           .then(response => {
@@ -282,10 +278,13 @@
         const data = {
           date: date,
           productName: productName,
+          machineName:machineName,
           machineNumber: machineNumber,
           machineName: machineName,
           count: count
         };
+
+        
         fetch('/admin/add/production', {
           method: 'POST',
           headers: {
@@ -302,8 +301,9 @@
           })
           .then(data => {
 
-            createAlert("Başarılı!", "Ürün Kaydı Başarılı.", "success");
-            document.getElementById('product').value = "";
+            createAlert("Başarılı!", "Üretim Kaydı Başarılı.", "success");
+            getProduction();
+           
           })
           .catch(error => {
             // Hata durumunda
@@ -345,12 +345,7 @@
         <td class="px-6 py-4">
             ${item.urun_ad}
         </td>
-        <td class="px-6 py-4">
-            ${item.makine_numarasi}
-        </td>
-        <td class="px-6 py-4">
-            ${item.makine_ad}
-        </td>
+     
         <td class="px-6 py-4">
             ${item.uretim_adedi} <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
         </td>
@@ -366,6 +361,7 @@
 
 
     </script>
+    
 
 
 </body>
