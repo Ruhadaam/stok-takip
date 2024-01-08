@@ -84,7 +84,7 @@ router.post('/admin/add/production', (req, res) => {
     let makine_ad = req.body.machineName;
     let makine_numarasi = req.body.machineNumber;
     let uretim_adedi = req.body.count;
-    console.log(req.body);
+   
 
     const sql = `INSERT INTO uretim_tbl (uretim_tarih, urun_ad, makine_ad, makine_numarasi, uretim_adedi)
                  VALUES (?, ?, ?, ?, ?);`;
@@ -136,6 +136,29 @@ router.get('/admin/get-product-name', (req, res) => {
         }
     });
 });
+router.post('/admin/get/product-date', (req, res) => {
+    
+    const dateArray = req.body;
+    const formattedDates = dateArray.map(date => {
+        const [day, month, year] = date.split('.');
+        return `${year}-${month}-${day}`;
+    });
+    const dateStr = formattedDates.map(date => `'${date}'`).join(',');
+
+    // SQL sorgusu oluştur
+    const query = `SELECT * FROM uretim_tbl WHERE uretim_tarih IN (${dateStr})`;
+
+    // MySQL sorgusu yap
+    db.query(query, (error, result) => {
+        if (error) {
+            console.log("Bir hata oluştu: " + error);
+            res.status(500).send("Veri çekme sırasında bir hata oluştu.");
+        } else {
+            console.log(result);
+            res.status(200).send(result);
+        }
+    });
+});
 router.get('/admin/get-production', (req, res) => {
     const today = new Date().toISOString().split('T')[0];
 
@@ -144,7 +167,7 @@ router.get('/admin/get-production', (req, res) => {
             console.log("Bir hata oluştu: " + error);
             res.status(500).send("Veri çekme sırasında bir hata oluştu.");
         } else {
-            console.log(result);
+            
             res.status(200).send(result);
         }
     });
