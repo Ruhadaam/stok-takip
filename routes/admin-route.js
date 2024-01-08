@@ -203,6 +203,67 @@ router.delete("/admin/delete/product-name/:urun_id", (req, res) => {
 
 });
 
+//UPDATE DATA 
+
+router.put('/admin/update/number/:id', (req, res) => {
+    let makine_id = req.params.id;
+    let update = req.body.makine_numarasi;
+
+    const sql = `
+        UPDATE numara_tbl
+        SET makine_numarasi = ?
+        WHERE makine_id = ?;`;
+
+    db.query(sql, [update, makine_id], (error, result) => {
+        if (error) {
+            console.error("Güncelleme işlenirken bir hata gerçekleşti:", error);
+            res.status(500).send("Güncelleme işlenirken bir hata gerçekleşti.");
+        } else {
+            res.status(200).send({makine_id});
+        }
+    });
+});
+router.put('/admin/update/name/:id', (req, res) => {
+    let ad_id = req.params.id;
+    let update = req.body.makine_adi;
+
+    const sql = `
+        UPDATE makine_tbl
+        SET makine_ad = ?
+        WHERE ad_id = ?;`;
+
+    db.query(sql, [update, ad_id], (error, result) => {
+        if (error) {
+            console.error("Güncelleme işlenirken bir hata gerçekleşti:", error);
+            res.status(500).send("Güncelleme işlenirken bir hata gerçekleşti.");
+        } else {
+            res.status(200).send({ad_id});
+        }
+    });
+});
+router.put('/admin/update/product/:id', (req, res) => {
+    let urun_id = req.params.id;
+    let update = req.body.urun_ad;
+
+    const sql = `
+        UPDATE urun_tbl
+        SET urun_ad = ?
+        WHERE urun_id = ?;`;
+
+    db.query(sql, [update, urun_id], (error, result) => {
+        if (error) {
+            console.error("Güncelleme işlenirken bir hata gerçekleşti:", error);
+            res.status(500).send("Güncelleme işlenirken bir hata gerçekleşti.");
+        } else {
+            res.status(200).send({urun_id});
+        }
+    });
+});
+
+
+
+
+
 
 
 
