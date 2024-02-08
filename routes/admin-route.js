@@ -1,18 +1,63 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/db');
+const util = require('util');
+const queryAsync = util.promisify(db.query).bind(db);
 
+router.post('/admin/login', async (req, res) => {
+    const { username, password } = req.body;
+  
+    try {
+      // Örnek: Kullanıcı adı ve şifre kontrolü
+      const user = await queryAsync('SELECT * FROM users WHERE kullanici_ad = ? AND sifre = ?', [username, password]);
+  
+      if (user.length > 0) {
+        // Login başarılı, session oluştur
+        req.session.adminUser = user[0];
+        res.redirect('/admin'); // İstediğiniz sayfaya yönlendirme
+      } else {
+        res.render('admin/login', { error: 'Kullanıcı adı veya şifre hatalı' });
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+  router.get('/admin/logout', (req, res) => {
+    // Session'ı sıfırla
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Logout error:', err);
+        res.status(500).send('Internal Server Error');
+      } else {
+  
+        res.redirect('/admin/login');
+      }
+    });
+  });
 
+  const requireAdminLogin = (req, res, next) => {
+    if (!req.session.adminUser) {
+      res.redirect('/admin/login');
+    } else {
+      next();
+    }
+  };
 
-router.get('/admin', (req, res) => {
+  router.get('/admin/login', (req, res) => {
+    res.render('admin/login');
+  });
+
+router.get('/admin',requireAdminLogin,(req, res) => {
     const data = {
-        value: "uretim-ekle",
+        value: "makine",
         title: "Admin",
 
     };
     res.render('admin/admin-index', data);
 
 });
+
 
 
 router.get('/admin/makine', (req, res) => {

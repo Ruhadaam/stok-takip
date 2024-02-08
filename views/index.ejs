@@ -14,12 +14,15 @@
 
   <%- include('template/navbar') %>
 
-    <div class="flex">
+   
       <!-- left Side Start -->
-      <div class="w-1/2">
+      <div class="w-full p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20">
+        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Üretim Girişi</h1>
         <!-- Left Top Start -->
         <div class=" my-10 flex items-center justify-center">
-          <div class="bg-white p-8 rounded-lg shadow-md w-1/2">
+          
+          <div class="bg-white p-4 md:p-8 lg:p-12 xl:p-16 rounded-lg shadow-md w-full md:w-1/2">
+ 
 
 
 
@@ -113,15 +116,16 @@
       </div>
 
       <!-- Left Side End -->
-
+      <hr class="w-full h-1 mx-auto my-4 bg-gray-200 border-0 rounded md:my-10 dark:bg-gray-700">
 
       <!-- Right Side Start -->
-      <div class="w-1/2">
-        <!-- Right Top Start -->
-        <div class=" my-10 flex items-center justify-center">
-          <div class="bg-white p-8 rounded-lg shadow-md w-1/2">
+      <div class="w-full items-center">
+        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Üretim Hesaplama</h1>
+        
+        <div class="my-10 md:my-16 lg:my-20 xl:my-24 flex items-center justify-center">
+          <div class="bg-white p-8 rounded-lg shadow-md  text-center items-center" >
 
-            <div date-rangepicker class="flex items-center">
+            <div date-rangepicker class="flex items-center w-full">
               <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -134,7 +138,7 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Başlangıç Tarihi">
               </div>
-              <span class="mx-4 text-gray-500">to</span>
+              <span class="mx-4 text-gray-500">ve</span>
               <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -148,10 +152,11 @@
                   placeholder="Bitiş Tarihi">
               </div>
             </div>
-            <button type="button" id="hesapla"
-              class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Dark</button>
+            <div class="text-center mt-5">
+              <button type="button" id="hesapla"
+                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Göster</button>
 
-
+            </div>
 
 
           </div>
@@ -159,7 +164,7 @@
         <!-- Right Top End -->
 
         <!-- Right Bottom Start -->
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center text-center mb-10">
           <div id="toplamUrun" class="bg-white p-8 rounded-lg shadow-md ">
 
 
@@ -194,7 +199,7 @@
       <!-- Right Side End -->
 
 
-    </div>
+  
 
 
 
@@ -236,9 +241,15 @@
 
     <!-- ADD AND GET DATA SCRIPTS -->
     <script>
-      addEventListener("DOMContentLoaded", () => {
-        getProduction();
-      })
+function clearInputs() {
+  document.getElementById("date").value ="";
+  document.getElementById("machineNumber").value ="";
+  document.getElementById("machineName").value ="";
+  document.getElementById("productName").value ="";
+  document.getElementById("count").value ="";
+}
+
+
 
       function getMachineNumber() {
         fetch('/admin/get-machine-number')
@@ -347,6 +358,7 @@
 
             createAlert("Başarılı!", "Üretim Kaydı Başarılı.", "success");
             getProduction();
+            clearInputs();
 
           })
           .catch(error => {
@@ -365,15 +377,17 @@
             return response.json();
           })
           .then(data => {
+            function formatNumberWithDot(number) {
+              return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
 
             let tbody = document.getElementById('tbody');
-
+            tbody.innerHTML= "";
             data.forEach(item => {
 
-              // Örnek tarih değeri: "2010-09-19T21:00:00.000Z"
               const originalDate = new Date(item.uretim_tarih);
 
-              // Türk standartlarına uygun tarih ve saat formatı
+
               const formattedDate = originalDate.toLocaleDateString('tr-TR', {
                 year: 'numeric',
                 month: 'numeric',
@@ -391,7 +405,7 @@
         </td>
      
         <td class="px-6 py-4">
-            ${item.uretim_adedi} <span class="font-medium text-gray-900 whitespace-nowrap">adet</span>
+            ${formatNumberWithDot(parseInt(item.uretim_adedi))} 
         </td>
     </tr>
 `;
@@ -458,15 +472,18 @@
           .then(data => {
             let toplam = 0;
             let tbody2 = document.getElementById('tbody2');
-
+            function formatNumberWithDot(number) {
+              return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
             data.forEach(item => {
+           
 
               toplam += parseInt(item.uretim_adedi);
-              console.log(toplam);
-              // Örnek tarih değeri: "2010-09-19T21:00:00.000Z"
+             
+
               const originalDate = new Date(item.uretim_tarih);
 
-              // Türk standartlarına uygun tarih ve saat formatı
+
               const formattedDate = originalDate.toLocaleDateString('tr-TR', {
                 year: 'numeric',
                 month: 'numeric',
@@ -484,18 +501,18 @@
               </td>
 
               <td class="px-6 py-4">
-              ${item.uretim_adedi}
+                ${formatNumberWithDot(parseInt(item.uretim_adedi))} 
               </td>
               </tr>`;
             });
             document.getElementById('toplamUrun').innerHTML += `
-  <h4 class="mb-4 text-lg font-extrabold text-gray-900 dark:text-white">Toplam Üretilen Şişe</h4>
-  <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-3xl font-extrabold">${toplam}</span>
+  <h4 class="mt-4 text-lg font-extrabold text-gray-900 dark:text-white">Toplam Üretilen Şişe</h4>
+  <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400 text-3xl font-extrabold">${formatNumberWithDot(toplam)}</span>
 `;
 
-         
 
-           })
+
+          })
           .catch();
       })
 

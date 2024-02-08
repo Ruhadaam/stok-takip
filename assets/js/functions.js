@@ -1,4 +1,7 @@
 
+
+
+
 //SCRIPTS FOR FROM FETCH PROCESS
 
   function createAlert(title, text, icon) {
@@ -132,7 +135,7 @@
     let machineNumber = document.getElementById('machineNumber').value;
     let machineName = document.getElementById('machineName').value;
     let count = document.getElementById('count').value;
-    ;
+    
     const data = {
       date: date,
       productName: productName,
@@ -157,7 +160,7 @@
       .then(data => {
         console.log(data);
         createAlert("Başarılı!", "Ürün Kaydı Başarılı.", "success");
-        document.getElementById('product').value = "";
+        clearInputs();
       })
       .catch(error => {
         // Hata durumunda
@@ -240,6 +243,7 @@ document.getElementById(modalId).classList.remove('hidden');
 function closeModal(modalId) {
 document.getElementById(modalId).classList.add('hidden');
 }
+
 
 
 
