@@ -31,7 +31,7 @@ router.post('/admin/login', async (req, res) => {
         res.status(500).send('Internal Server Error');
       } else {
   
-        res.redirect('/admin/login');
+        res.redirect('/');
       }
     });
   });
@@ -60,7 +60,7 @@ router.get('/admin',requireAdminLogin,(req, res) => {
 
 
 
-router.get('/admin/makine', (req, res) => {
+router.get('/admin/makine', requireAdminLogin, (req, res) => {
     const data = {
         value: "makine",
         title: "Admin",
